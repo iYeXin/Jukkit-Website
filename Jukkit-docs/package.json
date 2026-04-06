@@ -1,5 +1,9 @@
 {
   "devDependencies": {
+    "autoprefixer": "^10.4.27",
+    "postcss": "^8.5.8",
+    "sass": "^1.99.0",
+    "tailwindcss": "^4.2.2",
     "vitepress": "^2.0.0-alpha.17",
     "vue": "^3.5.32"
   },
@@ -7,5 +11,8 @@
     "vitepress:dev": "vitepress dev",
     "vitepress:build": "vitepress build",
     "vitepress:preview": "vitepress preview"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.2.2"
   }
 }
