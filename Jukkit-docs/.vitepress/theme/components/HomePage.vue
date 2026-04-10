@@ -100,7 +100,7 @@ const startTypingEffect = async () => {
   const prefixStr = "THE";
   const topStr = "JUKKIT";
   const bottomStr = "FRAMEWORK";
-  const p1 = "Jukkit 框架可以让你使用 Javascript 或 Typescript 语言来开发基于 Bukkit 的 Minecraft Java 版服务器插件。";
+  const p1 = "Jukkit 框架可以让你使用 Javascript 或 Typescript 语言来开发基于 Bukkit 的 Minecraft Java 版服务器插件。产出标准 Jar 文件，";
   const p2 = "甚至无需任何 Java 开发环境！";
 
   for (let i = 0; i <= prefixStr.length; i++) {
@@ -212,12 +212,11 @@ onUnmounted(() => {
       <div class="w-full max-w-2xl mt-12">
         <p class="relative text-lg md:text-xl font-medium leading-relaxed text-(--text-secondary)">
           <span class="invisible block pl-5!">
-            Jukkit is a high-performance plugin ecosystem designed for modern web developers. Built with <span
-              class="font-bold text-(--text-primary)">speed</span> and <span
-              class="font-bold text-(--text-primary)">scalability</span>.
+            Jukkit 框架可以让你使用 Javascript 或 Typescript 语言来开发基于 Bukkit 的 Minecraft Java 版服务器插件。
           </span>
           <span class="absolute top-0 left-0 w-full text-inherit pl-3!">
             {{ pTextPart1 }}
+            <br>
             <span class="font-bold text-(--text-primary)">{{ pTextPart2 }}</span>
           </span>
         </p>
@@ -239,8 +238,8 @@ onUnmounted(() => {
     </div>
 
     <!-- 跑马灯 Section -->
-    <section class="w-full overflow-hidden reveal marquee-section mt-20 py-4">
-      <div class="transform -rotate-3 scale-110 py-10 transition-all duration-1000 hover:rotate-0 hover:scale-100">
+    <section class="w-full overflow-hidden reveal marquee-section mt-20 py-4 select-none">
+      <div class="transform -rotate-3 scale-110 py-10 transition-all duration-1000">
         <div class="w-full h-[1px] bg-linear-to-r from-transparent via-(--border-base) to-transparent mb-8"></div>
         <div class="flex overflow-hidden">
           <div class="animate-marquee flex flex-none whitespace-nowrap text-[3rem] font-black! leading-none">
