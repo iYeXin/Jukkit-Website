@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import { BoldIcon, BoltIcon } from '@heroicons/vue/24/solid'
+import { BoltIcon, ClipboardIcon, CubeIcon } from '@heroicons/vue/24/solid'
 
 // --- 主题逻辑 ---
 type Theme = 'auto' | 'dark' | 'light';
@@ -73,12 +73,28 @@ const setupScrollReveal = () => {
   revealElements.forEach((el) => observer?.observe(el));
 };
 
+const copyAllCommands = async () => {
+  const commands = `git clone https://github.com/iYeXin/Jukkit.git\ncd Jukkit\nnpm install`;
+  try {
+    await navigator.clipboard.writeText(commands);
+  } catch (err) {
+    console.error('复制失败', err);
+  }
+};
+
 const h1Prefix = ref('');
 const h1Top = ref('');
 const h1Bottom = ref('');
 const pTextPart1 = ref('');
 const pTextPart2 = ref('');
 const isTypingFinished = ref(false);
+const mouseX = ref(0);
+const mouseY = ref(0);
+
+const updateMousePosition = (e: MouseEvent) => {
+  mouseX.value = e.clientX;
+  mouseY.value = e.clientY;
+};
 
 const startTypingEffect = async () => {
   const prefixStr = "THE";
@@ -129,6 +145,7 @@ onMounted(async () => {
   mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
   mediaQuery.addEventListener('change', handleSystemThemeChange);
   window.addEventListener('storage', handleStorageChange);
+  window.addEventListener('mousemove', updateMousePosition);
 
   setupScrollReveal();
   await startTypingEffect();
@@ -137,6 +154,7 @@ onMounted(async () => {
 onUnmounted(() => {
   if (mediaQuery) mediaQuery.removeEventListener('change', handleSystemThemeChange);
   window.removeEventListener('storage', handleStorageChange);
+  window.removeEventListener('mousemove', updateMousePosition);
   if (observer) observer.disconnect();
 });
 </script>
@@ -155,6 +173,10 @@ onUnmounted(() => {
     <div
       class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]">
     </div>
+
+    <div class="pointer-events-none absolute inset-0 z-0 transition-opacity duration-500" :style="{
+      background: `radial-gradient(600px circle at ${mouseX}px ${mouseY}px, rgba(156, 77, 255,0.08), transparent 80%)`
+    }"></div>
   </div>
 
   <div class="relative min-h-screen px-6 py-12 md:px-12 lg:px-24 flex flex-col items-start overflow-x-hidden">
@@ -218,34 +240,19 @@ onUnmounted(() => {
 
     <!-- 跑马灯 Section -->
     <section class="w-full overflow-hidden reveal marquee-section mt-20 py-4">
-
-      <!-- 内层容器：专门负责旋转。通过 scale-110 和 py-10 确保旋转后的角不会被切断 -->
       <div class="transform -rotate-3 scale-110 py-10 transition-all duration-1000 hover:rotate-0 hover:scale-100">
-
-        <!-- 分隔线 1 -->
         <div class="w-full h-[1px] bg-linear-to-r from-transparent via-(--border-base) to-transparent mb-8"></div>
-
-        <!-- 滚动轨道层 -->
         <div class="flex overflow-hidden">
-          <!-- 动画层：确保 flex-none 防止挤压，leading-none 防止行高过大 -->
-          <div class="animate-marquee flex flex-none whitespace-nowrap text-[3rem] font-black leading-none">
-
-            <!-- 第一个文本块：px-4 保证左右间距对称 -->
+          <div class="animate-marquee flex flex-none whitespace-nowrap text-[3rem] font-black! leading-none">
             <div class="flex items-center px-4">
               🚀 高性能 ⚡ 无需 JAVA 开发环境 🛠️ 易于上手 💎 使用你最喜欢的 JS 和 TS！
             </div>
-
-            <!-- 第二个文本块：必须与第一个完全一致 -->
             <div class="flex items-center px-4">
               🚀 高性能 ⚡ 无需 JAVA 开发环境 🛠️ 易于上手 💎 使用你最喜欢的 JS 和 TS！
             </div>
-
           </div>
         </div>
-
-        <!-- 分隔线 2 -->
         <div class="w-full h-[1px] bg-linear-to-r from-transparent via-(--border-base) to-transparent mt-8"></div>
-
       </div>
     </section>
 
@@ -254,46 +261,42 @@ onUnmounted(() => {
     <section class="w-full max-w-7xl grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 mt-20">
       <!-- 大卡片 -->
       <div
-        class="md:col-span-2 md:row-span-2 group relative overflow-hidden rounded-[2.5rem] p-8 bg-(--bg-card) border border-(--border-card) backdrop-blur-md hover:border-(--accent-blue) transition-all duration-500 reveal">
+        class="md:col-span-2 md:row-span-2 group relative overflow-hidden rounded-[2.5rem] p-8 bg-(--bg-card) border border-(--border-card) backdrop-blur-md hover:scale-[1.02] transition-all duration-500 reveal">
         <div class="h-full flex flex-col justify-between">
           <div
             class="h-[5rem] w-[5rem] rounded-2xl bg-(--accent-blue) flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
             <BoltIcon class="size-10"></BoltIcon>
           </div>
           <div>
-            <h3 class="text-3xl font-bold text-(--text-primary) mb-3">Ultra Fast Core</h3>
-            <p class="text-lg leading-relaxed text-(--text-secondary)">Engineered for maximum throughput with
-              minimal latency overhead.</p>
+            <h3 class="text-[clamp(1.5rem,4vw,3rem)]! font-bold text-(--text-primary) mt-5! mb-5!">高效率核心</h3>
+            <p class="text-xl max-md:text-lg leading-relaxed text-(--text-secondary)">与原生 Java 插件近乎相同的性能</p>
           </div>
         </div>
       </div>
 
       <!-- 中卡片 -->
       <div
-        class="md:col-span-2 group rounded-[2.5rem] p-8 bg-(--bg-card) border border-(--border-card) backdrop-blur-md hover:scale-[1.02] transition-all duration-500 reveal">
+        class="md:col-span-2 group flex items-center justify-center rounded-[2.5rem] p-8 bg-(--bg-card) border border-(--border-card) backdrop-blur-md hover:scale-[1.02] transition-all duration-500 reveal">
         <div class="flex items-center gap-6">
-          <div class="h-12 w-12 rounded-xl bg-(--accent-purple) flex items-center justify-center text-white shrink-0">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 01-2-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-            </svg>
+          <div class="h-15 w-15 rounded-3xl bg-(--accent-purple) flex items-center justify-center text-white shrink-0">
+            <CubeIcon class="size-8"></CubeIcon>
           </div>
-          <h3 class="text-xl font-bold text-(--text-primary)">Modular Architecture</h3>
+          <h3 class="font-bolder text-(--text-primary) text-[2rem]!">模块化设计</h3>
         </div>
       </div>
 
       <!-- 小卡片 1 (反色卡片) -->
       <div
-        class="group rounded-[2.5rem] p-8 bg-(--bg-card-alt) text-(--text-alt) transition-all duration-500 hover:rotate-3 reveal">
-        <h3 class="text-lg font-bold mb-2">Scalable</h3>
-        <p class="text-sm opacity-70">Grow effortlessly.</p>
+        class="group rounded-[2.5rem] flex flex-col h-[200px] justify-center p-8 bg-(--bg-card-alt) text-(--text-alt) transition-all duration-500 hover:rotate-3 reveal">
+        <h3 class="text-lg font-bold mb-2">易于上手</h3>
+        <p class="text-sm opacity-70 m-0!">简介易懂的开发逻辑</p>
       </div>
 
       <!-- 小卡片 2 -->
       <div
-        class="group rounded-[2.5rem] p-8 bg-(--bg-card) border border-(--border-card) backdrop-blur-md hover:-rotate-3 transition-all duration-500 reveal">
-        <h3 class="text-lg font-bold text-(--text-primary) mb-2">Secure</h3>
-        <p class="text-sm text-(--text-secondary)">Enterprise grade.</p>
+        class="group rounded-[2.5rem] flex flex-col p-8 h-[200px] justify-center bg-(--bg-card) border border-(--border-card) backdrop-blur-md hover:-rotate-3 transition-all duration-500 reveal">
+        <h3 class="text-lg font-bold text-(--text-primary) mb-2">低环境依赖</h3>
+        <p class="text-sm text-(--text-secondary) m-0! ">只需 NPM 就完事了</p>
       </div>
     </section>
 
@@ -301,13 +304,63 @@ onUnmounted(() => {
     <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-(--border-base) to-transparent my-12">
     </div>
 
+    <section class="w-full max-w-5xl mx-auto mt-5 mb-20 reveal">
+      <div class="text-center mb-5">
+        <h2
+          class="text-[clamp(2rem,4vw,3rem)]! md:text-5xl font-black! text-(--text-primary) mb-8 border-0! m-0! p-0! leading-normal!">
+          快速开始
+        </h2>
+        <p class="text-(--text-secondary) text-lg">只需几步，即可开启你的插件开发之旅</p>
+      </div>
+
+      <!-- Terminal Window -->
+      <div
+        class="relative group rounded-2xl overflow-hidden border border-(--border-card) bg-zinc-800/20 backdrop-blur-2xl shadow-2xl transition-all duration-500">
+        <!-- Terminal Header -->
+        <div class="flex items-center gap-2 px-4 py-3 bg-(--terminal-title) border-b border-white/10">
+          <div class="flex gap-1.5">
+            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+          </div>
+          <div class="mx-auto text-xs text-(--text-primary) font-mono opacity-60">bash — jukkit-setup</div>
+        </div>
+
+        <!-- Terminal Body -->
+        <div class="p-6 md:p-10 font-mono text-sm md:text-base leading-relaxed overflow-x-auto">
+          <div class="flex gap-3 group/line">
+            <span class="text-green-400 shrink-0">$</span>
+            <code class="text-(--text-primary) opacity-90">git clone https://github.com/iYeXin/Jukkit.git</code>
+          </div>
+          <div class="flex gap-3 group/line mt-3">
+            <span class="text-green-400 shrink-0">$</span>
+            <code class="text-(--text-primary) opacity-90">cd Jukkit</code>
+          </div>
+          <div class="flex gap-3 group/line mt-3">
+            <span class="text-green-400 shrink-0">$</span>
+            <code class="text-(--text-primary) opacity-90">npm install</code>
+          </div>
+        </div>
+
+        <!-- Copy Button (Optional Decor) -->
+        <div
+          class="absolute top-14 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
+          <button @click="copyAllCommands"
+            class="py-1.5 grid place-items-center size-10 rounded-lg bg-purple-800 text-white text-xs font-bold! hover:bg-purple-900 transition-colors shadow-lg">
+            <ClipboardIcon class="size-5"></ClipboardIcon>
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- Footer -->
     <footer
       class="w-full mt-auto pb-12 pt-12 border-t border-(--border-base) flex justify-between items-center text-(--text-secondary) font-medium reveal">
       <div>© {{ new Date().getFullYear() }} Jukkit Project.</div>
       <div class="flex gap-6 text-sm">
         <a href="#" class="hover:text-(--accent-link) transition-colors">Docs</a>
-        <a href="#" class="hover:text-(--accent-link) transition-colors">GitHub</a>
+        <a href="https://github.com/iYeXin/Jukkit" target="_blank"
+          class="hover:text-(--accent-link) transition-colors">GitHub</a>
       </div>
     </footer>
   </div>
@@ -344,6 +397,8 @@ onUnmounted(() => {
   --grad-start: var(--color-blue-600);
   --grad-mid: var(--color-purple-500);
   --grad-end: var(--color-indigo-400);
+
+  --terminal-title: var(--color-zinc-300)
 }
 
 .dark {
@@ -367,7 +422,8 @@ onUnmounted(() => {
   --border-muted: var(--color-zinc-700);
   --border-card: color-mix(in srgb, var(--color-white), transparent 90%);
 
-  /* 强调色和渐变通常在暗色模式下保持不变 */
+  --terminal-title: var(--color-zinc-800)
+    /* 强调色和渐变通常在暗色模式下保持不变 */
 }
 </style>
 
@@ -382,6 +438,10 @@ onUnmounted(() => {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+h3 {
+  margin-top: 0 !important;
 }
 
 @keyframes fadeInUp {

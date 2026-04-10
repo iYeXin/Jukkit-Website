@@ -8,7 +8,7 @@ export default defineConfig({
       tailwindcss()
     ]
   },
-  title: "Jukkit Docs",
+  title: "Jukkit 官方文档",
   description: "Jukkit 官方文档",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -28,7 +28,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/iYeXin/Jukkit' }
     ]
   }
 })

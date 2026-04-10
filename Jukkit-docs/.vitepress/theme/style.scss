@@ -125,6 +125,10 @@
   --vp-custom-block-tip-code-bg: var(--vp-c-brand-soft);
 }
 
+.dark :root {
+  --v-bg-c: var(--color-slate-50);
+}
+
 @variant dark (&:where(.dark, .dark *));
 
 .VPHome {
