@@ -204,7 +204,7 @@ npm run build
 
 1. 首次部署 JAR 后，插件会在 `plugins/dev_MyPlugin/` 目录下工作
 2. 后续只需上传新的 `modules.zip` 文件即可热重载
-3. 配置 MCSManager 可实现自动上传（见 [进阶知识](./进阶知识.md)）
+3. 配置 MCSManager 可实现自动上传（见 [进阶知识](/docs/further/build-config)）
 
 ## 项目结构
 
@@ -222,7 +222,7 @@ Jukkit/
 └── jukkit.config.js      # 项目配置
 ```
 
-> **提示**：`init/` 目录和 `rspack.config.js` 已经预配置好，**大多数用户完全不需要修改它们**。如需深入了解，请参阅 [进阶知识](./进阶知识.md)。
+> **提示**：`init/` 目录和 `rspack.config.js` 已经预配置好，**大多数用户完全不需要修改它们**。如需深入了解，请参阅 [进阶知识](/docs/further/build-config)。
 
 ## 使用 TypeScript（可选）
 
@@ -367,10 +367,10 @@ const content = fs.readFileSync('plugins/MyPlugin/config.json');
 fs.writeFileSync('plugins/MyPlugin/data.json', JSON.stringify(data));
 ```
 
-更多内置库请参阅 [库模块文档](./LIBS.md)。
+更多内置库请参阅 [库模块文档](/docs/libs/fs)。
 
 ## 下一步
 
 - [API 文档](/docs/api/global-objects) - 完整的 Jukkit API 参考
 - [库模块文档](/docs/libs/fs) - 内置库详细文档
-- [进阶知识](./进阶知识.md) - 深入了解构建配置、init 机制等
+- [进阶知识](/docs/further/build-config) - 深入了解构建配置、init 机制等
