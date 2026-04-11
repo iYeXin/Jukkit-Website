@@ -257,7 +257,7 @@ onUnmounted(() => {
 
 
     <!-- Bento Grid -->
-    <section class="w-full max-w-7xl grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 mt-20">
+    <section class="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 mt-20">
       <!-- 大卡片 -->
       <div
         class="md:col-span-2 md:row-span-2 group relative overflow-hidden rounded-[2.5rem] p-8 bg-(--bg-card) border border-(--border-card) backdrop-blur-md hover:scale-[1.02] transition-all duration-500 reveal">
