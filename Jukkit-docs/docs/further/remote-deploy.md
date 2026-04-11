@@ -25,4 +25,4 @@ upload: {
 3. 从 URL 中获取 `daemonId` 和 `instanceId`
 4. 在面板设置中生成 API 密钥
 
-详细说明请参阅 [MCSManager 上传指南](./MCSMANAGER_UPLOAD.md)。
+详细说明请参阅 [MCSManager 上传指南](./mcsmanager-upload)。

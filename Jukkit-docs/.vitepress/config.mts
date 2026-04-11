@@ -80,6 +80,7 @@ export default defineConfig({
               { text: 'TypeScript 支持', link: '/docs/further/typescript-support' },
               { text: '内置库模块', link: '/docs/further/built-in-libs' },
               { text: 'Vert.x', link: '/docs/further/vertx' },
+              { text: 'MCSManager 上传指南', link: '/docs/further/mcsmanager-upload' },
             ]
           }
         ],

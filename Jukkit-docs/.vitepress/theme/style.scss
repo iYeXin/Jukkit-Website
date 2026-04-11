@@ -154,3 +154,8 @@
     display: none !important;
   }
 }
+
+*::selection {
+  background-color: var(--vp-c-brand-3);
+  color: white;
+}

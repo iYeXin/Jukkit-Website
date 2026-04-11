@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
 import { BoltIcon, ClipboardIcon, CubeIcon } from '@heroicons/vue/24/solid'
+import { Notyf } from 'notyf';
+//@ts-ignore
+import 'notyf/notyf.min.css';
+
+const notyf = new Notyf();
 
 // --- 主题逻辑 ---
 type Theme = 'auto' | 'dark' | 'light';
@@ -77,6 +82,12 @@ const copyAllCommands = async () => {
   const commands = `git clone https://github.com/iYeXin/Jukkit.git\ncd Jukkit\nnpm install`;
   try {
     await navigator.clipboard.writeText(commands);
+    notyf.success({
+      message: '复制成功',
+      duration: 5000,
+      position: { x: 'center', y: 'top' },
+      background: 'var(--vp-c-brand-1)',
+    });
   } catch (err) {
     console.error('复制失败', err);
   }
@@ -179,7 +190,8 @@ onUnmounted(() => {
     }"></div>
   </div>
 
-  <div class="relative min-h-screen px-6 py-12 md:px-12 lg:px-24 flex flex-col items-start overflow-x-hidden">
+  <div
+    class="relative min-h-screen px-6 py-12 md:px-12 lg:px-24 flex flex-col items-start overflow-x-hidden selection:bg-blue-600/10!">
 
     <!-- Hero Section -->
     <section class="h-[calc(100vh-250px)] w-full flex flex-col justify-center relative reveal">
@@ -286,7 +298,7 @@ onUnmounted(() => {
 
       <!-- 小卡片 1 (反色卡片) -->
       <div
-        class="group rounded-[2.5rem] flex flex-col h-[200px] justify-center p-8 bg-(--bg-card-alt) text-(--text-alt) transition-all duration-500 hover:rotate-3 reveal">
+        class="group rounded-[2.5rem] flex flex-col p-8 h-[200px] justify-center bg-(--bg-card) border border-(--border-card) backdrop-blur-md hover:-rotate-3 transition-all duration-500 reveal">
         <h3 class="text-lg font-bold mb-2">易于上手</h3>
         <p class="text-sm opacity-70 m-0!">简介易懂的开发逻辑</p>
       </div>
@@ -329,15 +341,15 @@ onUnmounted(() => {
         <div class="p-6 md:p-10 font-mono text-sm md:text-base leading-relaxed overflow-x-auto">
           <div class="flex gap-3 group/line">
             <span class="text-green-400 shrink-0">$</span>
-            <code class="text-(--text-primary) opacity-90">git clone https://github.com/iYeXin/Jukkit.git</code>
+            <code class="text-[#6872a9]! opacity-90">git clone https://github.com/iYeXin/Jukkit.git</code>
           </div>
           <div class="flex gap-3 group/line mt-3">
             <span class="text-green-400 shrink-0">$</span>
-            <code class="text-(--text-primary) opacity-90">cd Jukkit</code>
+            <code class="text-[#6872a9]! opacity-90">cd Jukkit</code>
           </div>
           <div class="flex gap-3 group/line mt-3">
             <span class="text-green-400 shrink-0">$</span>
-            <code class="text-(--text-primary) opacity-90">npm install</code>
+            <code class="text-[#6872a9]! opacity-90">npm install</code>
           </div>
         </div>
 
